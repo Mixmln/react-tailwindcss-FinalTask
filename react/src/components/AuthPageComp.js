@@ -13,8 +13,8 @@ export default function AuthPageComp() {
   const { dispatch } = useContext(MainContext);
 
   return (
-    <div className='w-screen h-screen bg-indigo-100 pt-8'>
-      <div className='w-6/12 h-max bg-white mx-auto rounded'>
+    <div className='mt-10'>
+      <div className='w-5/12 h-max bg-white mx-auto rounded-3xl drop-shadow-lg'>
         {!authPage && <RegisterComp></RegisterComp>}
         {authPage && <LoginComp></LoginComp>}
       </div>

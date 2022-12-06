@@ -10,6 +10,15 @@ export default function RegisterComp() {
 
   const { username, passOne, passTwo, city, gender, age, errorMessage } = useSelector((state) => state.appStore);
 
+  const resetStates = () => {
+    dispatch(setUsername(''));
+    dispatch(setPassOne(''));
+    dispatch(setPassTwo(''));
+    dispatch(setCity(''));
+    dispatch(setGender(''));
+    dispatch(setAge(''));
+  };
+
   const handleForm = async () => {
     const user = {
       username,
@@ -26,6 +35,14 @@ export default function RegisterComp() {
     }
     dispatch(setError(''));
     const res = await postReq(user, 'register');
+    if (!res.error) {
+      dispatch(setError(''));
+      alert(res.message);
+      dispatch(changeAuthPage());
+      resetStates();
+    } else {
+      dispatch(setError(res.message));
+    }
   };
 
   return (
@@ -36,7 +53,7 @@ export default function RegisterComp() {
         <div className='flex items-center justify-between'>
           <label className='text-xl font-semibold text-neutral-900'>Username: </label>
           <input
-            className='w-5/12 px-4 py-2 bg-slate-400 rounded-lg text-white placeholder:text-white'
+            className='w-5/12 px-4 py-2 bg-slate-400 rounded-lg text-white placeholder:text-white caret-orange-400'
             type='text'
             placeholder='Enter username...'
             onChange={(e) => dispatch(setUsername(e.target.value))}
@@ -45,7 +62,7 @@ export default function RegisterComp() {
         <div className='flex items-center justify-between'>
           <label className='text-xl font-semibold text-neutral-900'>Password: </label>
           <input
-            className='w-5/12 px-4 py-2 bg-slate-400 rounded-lg text-white placeholder:text-white'
+            className='w-5/12 px-4 py-2 bg-slate-400 rounded-lg text-white placeholder:text-white caret-orange-400'
             type='password'
             placeholder='Enter Password...'
             onChange={(e) => dispatch(setPassOne(e.target.value))}
@@ -54,7 +71,7 @@ export default function RegisterComp() {
         <div className='flex items-center justify-between'>
           <label className='text-xl font-semibold text-neutral-900'>Repeat Pass: </label>
           <input
-            className='w-5/12 px-4 py-2 bg-slate-400 rounded-lg text-white placeholder:text-white'
+            className='w-5/12 px-4 py-2 bg-slate-400 rounded-lg text-white placeholder:text-white caret-orange-400'
             type='password'
             placeholder='Repeat Password...'
             onChange={(e) => dispatch(setPassTwo(e.target.value))}
@@ -88,7 +105,12 @@ export default function RegisterComp() {
         </div>
         <div className='flex items-center justify-between'>
           <label className='text-xl font-semibold text-neutral-900'>Age: </label>
-          <input className='w-5/12 px-4 py-2 bg-slate-400 rounded-lg text-white placeholder:text-white' type='number' placeholder='Enter age...' onChange={(e) => dispatch(setAge(e.target.value))} />
+          <input
+            className='w-5/12 px-4 py-2 bg-slate-400 rounded-lg text-white placeholder:text-white caret-orange-400 '
+            type='number'
+            placeholder='Enter age...'
+            onChange={(e) => dispatch(setAge(e.target.value))}
+          />
         </div>
       </form>
       <div className='flex justify-around mt-4'>

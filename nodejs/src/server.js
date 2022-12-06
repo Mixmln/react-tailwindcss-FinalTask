@@ -5,7 +5,7 @@ const cors = require('cors');
 // eslint-disable-next-line no-unused-vars
 const colors = require('colors');
 const mongoose = require('mongoose');
-// const session = require('express-session');
+const session = require('express-session');
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -13,6 +13,8 @@ const port = process.env.PORT || 8000;
 const http = require('http').createServer(app);
 
 const socketIo = require('socket.io');
+const socketRouter = require('./routes/socketRouter');
+const mainRouter = require('./routes/mainRouter');
 
 const io = socketIo(http, {
   cors: {
@@ -35,16 +37,15 @@ mongoose
 
 // Middleware
 
-// app.use(
-//   session({
-//     secret: process.env.SECRET_KEY,
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: { secure: false },
-//   })
-// );
-
 app.use(express.json());
+app.use(
+  session({
+    secret: process.env.SECRET_KEY,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false },
+  })
+);
 app.use(
   cors({
     origin: 'http://localhost:3000',
@@ -56,8 +57,5 @@ app.use(morgan('dev'));
 
 // Routes
 
-io.on('connect', (socket) => {
-  socket.on('', (data) => {
-    console.log('Data ==> ', data);
-  });
-});
+app.use('/', mainRouter);
+socketRouter(io);
