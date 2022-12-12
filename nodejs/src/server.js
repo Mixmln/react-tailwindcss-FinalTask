@@ -1,9 +1,8 @@
+/* eslint-disable comma-dangle */
 require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-// eslint-disable-next-line no-unused-vars
-const colors = require('colors');
 const mongoose = require('mongoose');
 const session = require('express-session');
 

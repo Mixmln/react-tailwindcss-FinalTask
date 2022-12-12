@@ -4,22 +4,12 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import MainContext from '../context/MainContext';
 import { postReq } from '../helpers/http';
-import { changeAuthPage, setAge, setCity, setError, setGender, setLogged, setPassOne, setPassTwo, setStayLogged, setUsername } from '../store/appStore';
+import { changeAuthPage, resetValues, setError, setLogged, setPassOne, setStayLogged, setUsername } from '../store/appStore';
 
 export default function LoginComp() {
-  const { dispatch } = useContext(MainContext);
+  const { dispatch, socket } = useContext(MainContext);
 
   const { username, passOne, stayLogged, errorMessage } = useSelector((state) => state.appStore);
-
-  const resetStates = () => {
-    dispatch(setError(''));
-    dispatch(setUsername(''));
-    dispatch(setPassOne(''));
-    dispatch(setPassTwo(''));
-    dispatch(setCity(''));
-    dispatch(setGender(''));
-    dispatch(setAge(''));
-  };
 
   const nav = useNavigate();
 
@@ -38,8 +28,10 @@ export default function LoginComp() {
       dispatch(setError(res.message));
     }
     if (!res.error) {
-      resetStates();
+      dispatch(resetValues());
       dispatch(setLogged(res.data));
+      socket.emit('logged', res.data);
+      socket.emit('allUsers', { name: user.username });
       alert(res.message);
       nav('/profile');
     }

@@ -28,7 +28,6 @@ export default function RegisterComp() {
       gender,
       age,
     };
-    console.log('user ===', user);
     if (username === '' || passOne === '' || passTwo === '' || city === '' || gender === '' || age === '') {
       dispatch(setError('All inputs are required'));
       return;

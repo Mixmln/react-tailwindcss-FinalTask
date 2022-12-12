@@ -1,16 +1,10 @@
 import React from 'react';
-import { useState } from 'react';
-import { useContext } from 'react';
 import { useSelector } from 'react-redux';
-import MainContext from '../context/MainContext';
-import { changeAuthPage } from '../store/appStore';
 import LoginComp from './LoginComp';
 import RegisterComp from './RegisterComp';
 
 export default function AuthPageComp() {
   const { authPage } = useSelector((state) => state.appStore);
-
-  const { dispatch } = useContext(MainContext);
 
   return (
     <div className='mt-10'>

@@ -17,7 +17,6 @@ export default function PhotoAdderComp() {
 
   const ref = useRef();
 
-  console.log('deletePhotoTrigger ===', deletePhotoTrigger);
 
   const addPhoto = () => {
     if (!photoTrigger) {

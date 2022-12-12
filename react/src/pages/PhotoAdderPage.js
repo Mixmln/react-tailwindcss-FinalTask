@@ -11,7 +11,6 @@ export default function PhotoAdderPage() {
 
   useEffect(() => {
     socket.on('photosUpdated', (data) => {
-      console.log('updated User ==> ', data);
       dispatch(setLogged(data));
     });
   }, []);

@@ -6,7 +6,7 @@ import MainContext from '../context/MainContext';
 import { setDeletePhotoTrigger, setSelectedPhoto } from '../store/appStore';
 
 export default function PhotoDeleteModal() {
-  const { logged, photoTrigger, deletePhotoTrigger, selectedPhoto } = useSelector((state) => state.appStore);
+  const { logged, deletePhotoTrigger, selectedPhoto } = useSelector((state) => state.appStore);
 
   const { socket, dispatch } = useContext(MainContext);
 
@@ -32,7 +32,7 @@ export default function PhotoDeleteModal() {
       <div className='bg-white rounded shadow-lg w-3/12'>
         <div className='border-b px-4 py-2'>Are you sure?</div>
         <div className='p-3'>
-          <p>Did you realy want to delete this beautiful photo?</p>
+          <p>Do you want to delete this beautiful photo?</p>
         </div>
         <div className='flex justify-end items-center w-100 border-t p-3'>
           <button className='bg-gray-600 hover:bg-gray-700 px-3 py-1 rounded text-white mr-1' onClick={cancel}>
